@@ -81,12 +81,12 @@ class Header extends Component {
         </StyledTitle>
 
         <StyledSection>
-          <img
+          {/* <img
             src={JSON.parse(localStorage.getItem("user")).avatar_url}
             alt=""
             width="50"
             height="50"
-          />
+          /> */}
 
           <StyledP>{this.props.user.username}</StyledP>
 
