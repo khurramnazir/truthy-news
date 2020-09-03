@@ -20,9 +20,9 @@ class App extends Component {
     },
   };
 
-  componentDidMount() {
-    this.setState({ user: JSON.parse(localStorage.getItem("user")) });
-  }
+  // componentDidMount() {
+  //   this.setState({ user: JSON.parse(localStorage.getItem("user")) });
+  // }
 
   render() {
     return (
