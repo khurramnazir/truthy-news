@@ -20,9 +20,16 @@ class App extends Component {
     },
   };
 
-  // componentDidMount() {
-  //   this.setState({ user: JSON.parse(localStorage.getItem("user")) });
-  // }
+  componentDidMount() {
+    this.setState({
+      user: {
+        username: "guest",
+        avatar_url:
+          "https://lugyc.com/wp-content/themes/onecommunity/images/avatar.gif",
+        name: "guest",
+      },
+    });
+  }
 
   render() {
     return (
