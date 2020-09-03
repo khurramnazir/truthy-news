@@ -21,14 +21,16 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.setState({
-      user: {
+    localStorage.clear();
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
         username: "guest",
         avatar_url:
           "https://lugyc.com/wp-content/themes/onecommunity/images/avatar.gif",
         name: "guest",
-      },
-    });
+      })
+    );
   }
 
   render() {
