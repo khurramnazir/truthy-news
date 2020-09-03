@@ -24,10 +24,10 @@ class App extends Component {
     this.setState({ user: JSON.parse(localStorage.getItem("user")) });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.user.username !== this.state.user.username)
-      this.setState({ user: JSON.parse(localStorage.getItem("user")) });
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.user.username !== this.state.user.username)
+  //     this.setState({ user: JSON.parse(localStorage.getItem("user")) });
+  // }
 
   render() {
     return (

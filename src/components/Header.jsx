@@ -91,9 +91,9 @@ class Header extends Component {
           <StyledP>{this.props.user.username}</StyledP>
 
           <StyledButtonSection>
-            <Link to="/login">
-              <StyledButton>Log In</StyledButton>
-            </Link>
+            {/* <Link to="/login"> */}
+            <StyledButton onClick={this.setStorage}>Log In</StyledButton>
+            {/* </Link> */}
 
             <StyledButton onClick={this.clearStorage}>Log Out</StyledButton>
           </StyledButtonSection>
@@ -101,6 +101,21 @@ class Header extends Component {
       </StyledHeader>
     );
   }
+
+  setStorage = (clickEvent) => {
+    localStorage.clear();
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        username: "Mr.Test",
+        avatar_url:
+          "https://f0.pngfuel.com/png/136/22/profile-icon-illustration-user-profile-computer-icons-girl-customer-avatar-png-clip-art.png",
+        name: "Mr.Test",
+      })
+    );
+    window.location.reload();
+  };
+
   clearStorage = (clickEvent) => {
     localStorage.clear();
     localStorage.setItem(
