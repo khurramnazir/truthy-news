@@ -1,0 +1,60 @@
+/* .App {
+  display: grid;
+  grid-template-columns: 50px 1fr 50px;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header header"
+    ". main ."
+    "footer footer footer";
+  height: 100vh;
+} */
+
+/* header {
+  display: grid;
+  grid-template-columns: 100px 1fr 100px;
+  grid-template-rows: auto 1fr auto;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-area: header;
+} */
+
+/* .content {
+  grid-column-start: 2;
+  grid-column-end: 2;
+}
+
+.HomeButton {
+  grid-area: header;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+footer {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
+} */
+
+.App {
+  display: grid;
+  grid-gap: 0px;
+  grid-template-areas:
+    "header"
+    "nav"
+    "content";
+}
+
+.main-head {
+  grid-area: header;
+}
+
+.filter {
+  grid-area: nav;
+}
+
+.articlelist {
+  grid-area: content;
+}
