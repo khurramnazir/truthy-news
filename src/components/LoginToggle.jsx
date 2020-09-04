@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
 import UserContext from "./UserContext";
-
 import { Link } from "@reach/router";
 import styled from "styled-components";
+import React, { Component } from "react";
 
 const StyledButton = styled.button`
   background-color: white;
@@ -19,22 +18,28 @@ const StyledButton = styled.button`
   text-align: center;
 `;
 
-const LoginToggle = (props) => {
-  const user = useContext(UserContext);
-  const { setUser } = user;
-  const selectedUser = props.currentUser;
-
-  return (
-    <Link to="/">
-      <StyledButton
-        onClick={() => {
-          setUser(selectedUser);
-        }}
-      >
-        Log in
-      </StyledButton>
-    </Link>
-  );
-};
+class LoginToggle extends Component {
+  render() {
+    return (
+      <UserContext.Consumer>
+        {({ user, setUser }) => (
+          <Link to="/">
+            <StyledButton
+              onClick={() => {
+                setUser(this.props.currentUser);
+                localStorage.setItem(
+                  "user",
+                  JSON.stringify(this.props.currentUser)
+                );
+              }}
+            >
+              Log in
+            </StyledButton>
+          </Link>
+        )}
+      </UserContext.Consumer>
+    );
+  }
+}
 
 export default LoginToggle;

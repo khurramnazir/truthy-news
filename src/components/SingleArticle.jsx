@@ -36,7 +36,7 @@ class SingleArticle extends Component {
   }
 
   render() {
-    const { user, setUser } = this.context;
+    const { user } = this.context;
     const { article, isLoading, err } = this.state;
     if (err) return <ErrorPage {...err} />;
 

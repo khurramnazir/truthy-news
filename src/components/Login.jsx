@@ -4,28 +4,28 @@ import Loader from "./Loader";
 
 import LoginToggle from "./LoginToggle";
 
-import { Link } from "@reach/router";
+// import { Link } from "@reach/router";
 
-import styled from "styled-components";
+// import styled from "styled-components";
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: white;
-`;
-const StyledButton = styled.button`
-  background-color: white;
-  border-radius: 12px;
-  border: 1px solid black;
-  display: inline-block;
-  cursor: pointer;
-  color: black;
-  font-family: "Kumbh Sans", sans-serif;
-  font-size: 12px;
-  padding: 6px;
-  text-decoration: none;
-  margin: 3px;
-  text-align: center;
-`;
+// const StyledLink = styled(Link)`
+//   text-decoration: none;
+//   color: white;
+// `;
+// const StyledButton = styled.button`
+//   background-color: white;
+//   border-radius: 12px;
+//   border: 1px solid black;
+//   display: inline-block;
+//   cursor: pointer;
+//   color: black;
+//   font-family: "Kumbh Sans", sans-serif;
+//   font-size: 12px;
+//   padding: 6px;
+//   text-decoration: none;
+//   margin: 3px;
+//   text-align: center;
+// `;
 
 class Login extends Component {
   state = {
@@ -67,9 +67,6 @@ class Login extends Component {
           </select>
         </label>
         <LoginToggle currentUser={this.state.currentUser} /> <br />
-        <StyledLink to="/">
-          <StyledButton>go to articles</StyledButton>
-        </StyledLink>
       </form>
     );
   }

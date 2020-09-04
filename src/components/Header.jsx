@@ -70,12 +70,13 @@ class Header extends Component {
     user: {},
   };
   componentDidMount() {
-    this.setState({ user: this.props.user });
+    const { user } = this.context;
+
+    this.setState({ user });
   }
 
   render() {
-    const { user, setUser } = this.context;
-    console.log(user);
+    const { user } = this.context;
 
     return (
       <StyledHeader className="main-head">
@@ -87,22 +88,20 @@ class Header extends Component {
         </StyledTitle>
 
         <StyledSection>
-          <img
-            // src={JSON.parse(localStorage.getItem("user")).avatar_url}
-            src={user.avatar_url}
-            alt=""
-            width="50"
-            height="50"
-          />
+          <img src={user.avatar_url} alt="" width="50" height="50" />
 
           <StyledP>{user.username}</StyledP>
 
           <StyledButtonSection>
-            <Link to="/login">
-              <StyledButton>Log In</StyledButton>
-            </Link>
+            {user.username === "guest" && (
+              <Link to="/login">
+                <StyledButton>Log In</StyledButton>
+              </Link>
+            )}
 
-            <StyledButton onClick={this.logOut}>Log Out</StyledButton>
+            {user.username !== "guest" && (
+              <StyledButton onClick={this.logOut}>Log Out</StyledButton>
+            )}
           </StyledButtonSection>
         </StyledSection>
       </StyledHeader>
@@ -110,7 +109,7 @@ class Header extends Component {
   }
 
   logOut = (clickEvent) => {
-    const { user, setUser } = this.context;
+    const { setUser } = this.context;
     const guestUser = {
       username: "guest",
       avatar_url:
@@ -119,6 +118,7 @@ class Header extends Component {
     };
 
     setUser(guestUser);
+    localStorage.clear();
   };
 }
 

@@ -55,7 +55,7 @@ class Comments extends Component {
   };
 
   render() {
-    const { user, setUser } = this.context;
+    const { user } = this.context;
     const { comments, isLoading } = this.state;
     if (isLoading) return <Loader />;
     return (
