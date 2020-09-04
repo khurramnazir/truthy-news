@@ -11,9 +11,8 @@ If you would like to use the repo for yourself:
 1. Clone the repo:
 
 ```
-git clone https://github.com/anisapatel/nc-daily-newsy.git
+git clone https://github.com/khurramnazir/truthy-news.git
 
-cd nc-daily-newsy
 ```
 
 2. Install all dependencies:
