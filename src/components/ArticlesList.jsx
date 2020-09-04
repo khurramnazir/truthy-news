@@ -15,7 +15,7 @@ const ArticlesList = (articles) => {
       {articles.articles.map((article) => {
         return (
           <li key={article.article_id}>
-            <Link to={`articles/${article.article_id}`}>
+            <Link to={`/articles/${article.article_id}`}>
               <ArticleTitle>{article.title}</ArticleTitle>
             </Link>
             <h4>
@@ -23,7 +23,7 @@ const ArticlesList = (articles) => {
               {article.created_at.substring(0, 10)} in {article.topic}
             </h4>
 
-            <Link to={`articles/${article.article_id}/comments`}>
+            <Link to={`/articles/${article.article_id}/comments`}>
               <h4>Comments: {article.comment_count}</h4>
             </Link>
             {user.username !== "guest" ? (

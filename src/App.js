@@ -10,6 +10,7 @@ import Comments from "./components/Comments";
 import ErrorPage from "./components/ErrorPage";
 
 import UserContext from "./components/UserContext";
+import TopicList from "./components/TopicsList";
 
 class App extends Component {
   setUser = (user) => {
@@ -42,7 +43,7 @@ class App extends Component {
           <Router className="content">
             <Login path="/login" />
             <HomePage path="/" />
-            <HomePage path="/topics/:topic_slug" />
+            <TopicList path="/topics/:topic_slug" />
             <SingleArticle path="articles/:id" />
             <Comments path="articles/:id/comments" />
             <ErrorPage default status={404} msg={"path not found"} />

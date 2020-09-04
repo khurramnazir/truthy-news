@@ -3,7 +3,7 @@ import ArticlesList from "./ArticlesList";
 import * as api from "../utils/api";
 import styled from "styled-components";
 import { navigate } from "@reach/router";
-
+import ErrorPage from "./ErrorPage";
 import Loader from "./Loader";
 
 const StyledButton = styled.button`
@@ -21,49 +21,61 @@ const StyledButton = styled.button`
   text-align: center;
 `;
 
-class HomePage extends Component {
+class TopicList extends Component {
   state = {
     articles: [],
     topics: [],
     isLoading: true,
     sort_by: "created_at",
     order: "desc",
+    chosenTopic: this.props.topic_slug,
+    err: null,
   };
 
   componentDidMount() {
-    const { sort_by, order } = this.state;
+    const { sort_by, order, chosenTopic } = this.state;
+    api
+      .getArticles(sort_by, order, chosenTopic)
+      .then((articles) => {
+        this.setState({
+          articles,
+          isLoading: false,
+          chosenTopic: chosenTopic,
+        });
+      })
 
-    api.getArticles(sort_by, order).then((articles) => {
-      this.setState({
-        articles,
-        isLoading: false,
-        // chosenTopic: chosenTopic,
+      .catch(({ response }) => {
+        this.setState({
+          isLoading: false,
+          err: { msg: response.data.msg, status: response.status },
+        });
       });
-    });
+
     api.getTopics().then((topics) => {
       this.setState({ topics });
     });
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const { sort_by, order, chosenTopic } = this.state;
-  //   if (prevState.chosenTopic !== this.state.chosenTopic) {
-  //     api.getArticles(sort_by, order, chosenTopic).then((articles) => {
-  //       this.setState({
-  //         articles,
-  //         isLoading: false,
-  //         chosenTopic: chosenTopic,
-  //       });
-  //     });
-  //     api.getTopics().then((topics) => {
-  //       this.setState({ topics });
-  //     });
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    const { sort_by, order, chosenTopic } = this.state;
+    if (prevProps.topic_slug !== this.props.topic_slug) {
+      api.getArticles(sort_by, order, chosenTopic).then((articles) => {
+        this.setState({
+          articles,
+          isLoading: false,
+          chosenTopic: chosenTopic,
+        });
+      });
+      api.getTopics().then((topics) => {
+        this.setState({ topics });
+      });
+    }
+  }
 
   render() {
-    const { articles, isLoading, topics } = this.state;
+    const { articles, isLoading, topics, err } = this.state;
     if (isLoading) return <Loader />;
+    if (err) return <ErrorPage {...err} />;
     return (
       <main>
         <nav className="filter">
@@ -86,11 +98,8 @@ class HomePage extends Component {
               onChange={this.handleSelect}
               name="topicsList"
               id="topicsList"
-              defaultValue="disabled"
+              defaultValue={this.state.chosenTopic}
             >
-              <option value="disabled" disabled>
-                choose a topic
-              </option>
               {topics.map((topic) => {
                 return (
                   <option key={topic.slug} value={topic.slug}>
@@ -137,7 +146,8 @@ class HomePage extends Component {
   };
   handleSelect = (clickEvent) => {
     navigate(`/topics/${clickEvent.target.value}`);
+    this.setState({ chosenTopic: clickEvent.target.value });
   };
 }
 
-export default HomePage;
+export default TopicList;
