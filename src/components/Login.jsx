@@ -47,10 +47,15 @@ class Login extends Component {
       <form>
         <label htmlFor="userList">
           Select User
-          <select onChange={this.handleSelect} name="userList" id="userList">
-            <option disabled selected value>
+          <select
+            onChange={this.handleSelect}
+            name="userList"
+            id="userList"
+            defaultValue="default"
+          >
+            <option disabled value="default">
               {" "}
-              -- select an option --{" "}
+              -- Select a User --{" "}
             </option>
             {users.map((user) => {
               return (

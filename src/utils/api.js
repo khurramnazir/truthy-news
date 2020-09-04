@@ -75,11 +75,3 @@ export const deleteComment = (id) => {
       return res.status;
     });
 };
-
-export const getImage = (topic) => {
-  return axios
-    .get(`ttps://serpapi.com/playground?q=${topic}&tbm=isch`)
-    .then((res) => {
-      console.log(res);
-    });
-};

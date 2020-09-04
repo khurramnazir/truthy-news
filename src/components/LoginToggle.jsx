@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import UserContext from "./UserContext";
 
 import { Link } from "@reach/router";
 import styled from "styled-components";
@@ -19,14 +20,15 @@ const StyledButton = styled.button`
 `;
 
 const LoginToggle = (props) => {
+  const user = useContext(UserContext);
+  const { setUser } = user;
+  const selectedUser = props.currentUser;
+
   return (
     <Link to="/">
       <StyledButton
         onClick={() => {
-          // setUser(props.currentUser);
-
-          localStorage.setItem("user", JSON.stringify(props.currentUser));
-          window.location.reload();
+          setUser(selectedUser);
         }}
       >
         Log in

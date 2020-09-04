@@ -6,12 +6,14 @@ import Voter from "./Voter";
 import Loader from "./Loader";
 import ErrorPage from "./ErrorPage";
 import styled from "styled-components";
+import UserContext from "./UserContext";
 
 const StyledMain = styled.main`
   margin: 25px;
 `;
 
 class SingleArticle extends Component {
+  static contextType = UserContext;
   state = {
     article: {},
     isLoading: true,
@@ -34,6 +36,7 @@ class SingleArticle extends Component {
   }
 
   render() {
+    const { user, setUser } = this.context;
     const { article, isLoading, err } = this.state;
     if (err) return <ErrorPage {...err} />;
 
@@ -47,7 +50,7 @@ class SingleArticle extends Component {
           </h4>
           <p>{article.body}</p>
           <h4>Comments: {article.comment_count}</h4>
-          {JSON.parse(localStorage.getItem("user")).username !== "guest" ? (
+          {user.username !== "guest" ? (
             <Voter
               id={article.article_id}
               type={"articles"}

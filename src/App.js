@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+// import React, { Component } from "react";
 import { Router } from "@reach/router";
 import "./App.css";
 import Header from "./components/Header";
@@ -9,30 +9,60 @@ import Login from "./components/Login";
 import SearchResults from "./components/SearchResults";
 import Comments from "./components/Comments";
 import ErrorPage from "./components/ErrorPage";
+import { UserProvider } from "./components/UserContext";
 
-class App extends Component {
-  state = {
-    user: {
-      username: "guest",
-      avatar_url:
-        "https://lugyc.com/wp-content/themes/onecommunity/images/avatar.gif",
-      name: "guest",
-    },
+// class App extends Component {
+//   state = {
+//     user: {
+//       username: "guest",
+//       avatar_url:
+//         "https://lugyc.com/wp-content/themes/onecommunity/images/avatar.gif",
+//       name: "guest",
+//     },
+//   };
+
+//   componentDidMount() {
+//     this.setState({ user: JSON.parse(localStorage.getItem("user")) });
+//   }
+
+//   componentDidUpdate(prevProps, prevState) {
+//     if (prevState.user.username !== this.state.user.username)
+//       this.setState({ user: JSON.parse(localStorage.getItem("user")) });
+//   }
+
+//   render() {
+//     return (
+//       <div className="App">
+//         <Header user={this.state.user} />
+//         <Router className="content">
+//           <Login path="/login" />
+//           <HomePage path="/" />
+//           <SingleArticle path="articles/:id" />
+//           <SearchResults path="/searchresults" />
+//           <Comments path="articles/:id/comments" />
+//           <ErrorPage default status={404} msg={"path not found"} />
+//         </Router>
+//       </div>
+//     );
+//   }
+// }
+
+// export default App;
+
+import React from "react";
+
+const App = () => {
+  const user = {
+    username: "guest",
+    avatar_url:
+      "https://lugyc.com/wp-content/themes/onecommunity/images/avatar.gif",
+    name: "guest",
   };
 
-  componentDidMount() {
-    this.setState({ user: JSON.parse(localStorage.getItem("user")) });
-  }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.user.username !== this.state.user.username)
-  //     this.setState({ user: JSON.parse(localStorage.getItem("user")) });
-  // }
-
-  render() {
-    return (
+  return (
+    <UserProvider value={user}>
       <div className="App">
-        <Header user={this.state.user} />
+        <Header />
         <Router className="content">
           <Login path="/login" />
           <HomePage path="/" />
@@ -42,8 +72,8 @@ class App extends Component {
           <ErrorPage default status={404} msg={"path not found"} />
         </Router>
       </div>
-    );
-  }
-}
+    </UserProvider>
+  );
+};
 
 export default App;

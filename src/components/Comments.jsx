@@ -2,6 +2,7 @@ import * as api from "../utils/api";
 import React, { Component } from "react";
 import Voter from "./Voter";
 import Loader from "./Loader";
+import UserContext from "./UserContext";
 
 import CommentAdder from "./CommentAdder";
 import CommentDeleter from "./CommentDeleter";
@@ -23,6 +24,7 @@ const StyledButton = styled.button`
 `;
 
 class Comments extends Component {
+  static contextType = UserContext;
   state = {
     article: [],
     isLoading: true,
@@ -53,12 +55,13 @@ class Comments extends Component {
   };
 
   render() {
+    const { user, setUser } = this.context;
     const { comments, isLoading } = this.state;
     if (isLoading) return <Loader />;
     return (
       <section>
         <h3>Comments</h3>
-        {JSON.parse(localStorage.getItem("user")).username !== "guest" ? (
+        {user.username !== "guest" ? (
           <CommentAdder
             id={this.props.id}
             insertNewComment={this.insertNewComment}
@@ -90,8 +93,7 @@ class Comments extends Component {
                   {comment.created_at.substring(0, 10)}
                 </h4>
                 <p>{comment.body}</p>
-                {JSON.parse(localStorage.getItem("user")).username !==
-                "guest" ? (
+                {user.username !== "guest" ? (
                   <Voter
                     id={comment.comment_id}
                     type={"comments"}
@@ -100,8 +102,7 @@ class Comments extends Component {
                 ) : (
                   <h3>Log in to vote</h3>
                 )}
-                {JSON.parse(localStorage.getItem("user")).username ===
-                  comment.author && (
+                {user.username === comment.author && (
                   <CommentDeleter
                     id={comment.comment_id}
                     updateComments={this.getComments}

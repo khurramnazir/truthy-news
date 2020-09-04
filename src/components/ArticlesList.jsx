@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import UserContext from "./UserContext";
 import { Link } from "@reach/router";
 import Voter from "./Voter";
 import styled from "styled-components";
@@ -8,6 +9,7 @@ const ArticleTitle = styled.h3`
 `;
 
 const ArticlesList = (articles) => {
+  const { user } = useContext(UserContext);
   return (
     <ul className="articlelist">
       {articles.articles.map((article) => {
@@ -20,11 +22,11 @@ const ArticlesList = (articles) => {
               Posted by: {article.author} on{" "}
               {article.created_at.substring(0, 10)} in {article.topic}
             </h4>
-            {/* {api.getImage(article.topic)} */}
+
             <Link to={`articles/${article.article_id}/comments`}>
               <h4>Comments: {article.comment_count}</h4>
             </Link>
-            {JSON.parse(localStorage.getItem("user")).username !== "guest" ? (
+            {user.username !== "guest" ? (
               <Voter
                 id={article.article_id}
                 type={"articles"}

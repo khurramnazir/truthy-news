@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import UserContext from "./UserContext";
 import { Link } from "@reach/router";
 
 import styled from "styled-components";
@@ -63,6 +64,8 @@ const StyledButton = styled.button`
 `;
 
 class Header extends Component {
+  static contextType = UserContext;
+
   state = {
     user: {},
   };
@@ -71,6 +74,9 @@ class Header extends Component {
   }
 
   render() {
+    const { user, setUser } = this.context;
+    console.log(user);
+
     return (
       <StyledHeader className="main-head">
         <StyledTitle>
@@ -83,52 +89,36 @@ class Header extends Component {
         <StyledSection>
           <img
             // src={JSON.parse(localStorage.getItem("user")).avatar_url}
-            src={this.props.user.avatar_url}
+            src={user.avatar_url}
             alt=""
             width="50"
             height="50"
           />
 
-          <StyledP>{this.props.user.username}</StyledP>
+          <StyledP>{user.username}</StyledP>
 
           <StyledButtonSection>
-            {/* <Link to="/login"> */}
-            <StyledButton onClick={this.setStorage}>Log In</StyledButton>
-            {/* </Link> */}
+            <Link to="/login">
+              <StyledButton>Log In</StyledButton>
+            </Link>
 
-            <StyledButton onClick={this.clearStorage}>Log Out</StyledButton>
+            <StyledButton onClick={this.logOut}>Log Out</StyledButton>
           </StyledButtonSection>
         </StyledSection>
       </StyledHeader>
     );
   }
 
-  setStorage = (clickEvent) => {
-    localStorage.clear();
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        username: "Mr.Test",
-        avatar_url:
-          "https://f0.pngfuel.com/png/136/22/profile-icon-illustration-user-profile-computer-icons-girl-customer-avatar-png-clip-art.png",
-        name: "Mr.Test",
-      })
-    );
-    window.location.reload();
-  };
+  logOut = (clickEvent) => {
+    const { user, setUser } = this.context;
+    const guestUser = {
+      username: "guest",
+      avatar_url:
+        "https://lugyc.com/wp-content/themes/onecommunity/images/avatar.gif",
+      name: "guest",
+    };
 
-  clearStorage = (clickEvent) => {
-    localStorage.clear();
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        username: "guest",
-        avatar_url:
-          "https://lugyc.com/wp-content/themes/onecommunity/images/avatar.gif",
-        name: "guest",
-      })
-    );
-    window.location.reload();
+    setUser(guestUser);
   };
 }
 
